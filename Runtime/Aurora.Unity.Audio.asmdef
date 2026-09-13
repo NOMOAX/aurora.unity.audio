@@ -1,0 +1,17 @@
+{
+    "name": "Aurora.Unity.Audio",
+    "rootNamespace": "Aurora.Unity.Audio",
+    "references": [
+        "Aurora",
+        "Aurora.Audio"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
