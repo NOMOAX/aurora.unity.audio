@@ -3,7 +3,8 @@
     "rootNamespace": "Aurora.Unity.Audio",
     "references": [
         "Aurora",
-        "Aurora.Audio"
+        "Aurora.Audio",
+        "Aurora.Unity"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
