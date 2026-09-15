@@ -1,7 +1,6 @@
 using System;
 using Aurora.Audio;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Aurora.Unity.Audio
 {
@@ -32,8 +31,13 @@ namespace Aurora.Unity.Audio
         /// </summary>
         /// <param name="id">The identifier of this sound.</param>
         /// <param name="audioClip">The audio clip to wrap.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="audioClip"/> is <see langword="null"/>.</exception>
         public UnitySound(T id, AudioClip audioClip) : base(id)
         {
+            if (audioClip == null)
+            {
+                throw new ArgumentNullException(nameof(audioClip));
+            }
             _audioClip = audioClip;
         }
 
@@ -48,17 +52,9 @@ namespace Aurora.Unity.Audio
         }
 
         /// <inheritdoc />
-        /// <remarks>Destroys the wrapped audio clip only when the program is running; otherwise the program is ending and Unity destroys the audio clip anyway.</remarks>
         protected override void Dispose(bool disposing)
         {
-            if (!IsDisposed)
-            {
-                if (disposing && UnityEnvironment.IsPlaying)
-                {
-                    Object.DestroyImmediate(_audioClip);
-                }
-                _audioClip = null;
-            }
+            _audioClip = null;
             base.Dispose(disposing);
         }
     }

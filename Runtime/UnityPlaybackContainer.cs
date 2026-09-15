@@ -4,7 +4,7 @@ namespace Aurora.Unity.Audio
 {
     [DoNotDestroyOnLoad]
     [WithHideFlags(HideFlags.DontSave | HideFlags.NotEditable)]
-    internal sealed class UnityAudioManagerOwner : SingletonBehaviour<UnityAudioManagerOwner>
+    internal sealed class UnityPlaybackContainer : SingletonBehaviour<UnityPlaybackContainer>
     {
         internal static void EnsureInitialized()
         {

@@ -20,16 +20,21 @@ namespace Aurora.Unity.Audio
         /// </summary>
         /// <param name="id">The identifier of this playback.</param>
         /// <param name="sound">The sound this playback is created from.</param>
-        /// <exception cref="InvalidCastException"><paramref name="sound"/> is not a <see cref="UnitySound{T}"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="sound"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentException">The <paramref name="sound"/> is not a <see cref="UnitySound{T}"/>.</exception>
         /// <exception cref="InvalidOperationException">The program is not running, so the game object that hosts this playback cannot be created.</exception>
         protected internal UnityPlayback(int id, Sound<T> sound) : base(id, sound)
         {
-            UnityAudioManagerOwner.EnsureInitialized();
+            if (sound is not UnitySound<T> unitySound)
+            {
+                throw new ArgumentException($"The {nameof(sound)} is not a {nameof(UnitySound<T>)}", nameof(sound));
+            }
+            UnityPlaybackContainer.EnsureInitialized();
             var gameObject = new GameObject(id.ToString(NumberFormatInfo.InvariantInfo));
             gameObject.hideFlags |= HideFlags.DontSave | HideFlags.NotEditable;
-            gameObject.transform.SetParent(UnityAudioManagerOwner.Instance.transform);
+            gameObject.transform.SetParent(UnityPlaybackContainer.Instance.transform);
             _audioSource      = gameObject.AddComponent<AudioSource>();
-            _audioSource.clip = ((UnitySound<T>)Sound).AudioClip;
+            _audioSource.clip = unitySound.AudioClip;
         }
 
         /// <inheritdoc />
@@ -98,18 +103,21 @@ namespace Aurora.Unity.Audio
         /// <inheritdoc />
         public override void Play()
         {
+            ThrowIfDisposed();
             _audioSource.Play();
         }
 
         /// <inheritdoc />
         public override void Pause()
         {
+            ThrowIfDisposed();
             _audioSource.Pause();
         }
 
         /// <inheritdoc />
         public override void Stop()
         {
+            ThrowIfDisposed();
             _audioSource.Stop();
         }
 
