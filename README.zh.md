@@ -1,7 +1,7 @@
 # Aurora Unity Audio
 
 ![许可](https://img.shields.io/github/license/NOMOAX/aurora.unity.audio)
-![版本](https://img.shields.io/badge/version-1.0.4-blue)
+![版本](https://img.shields.io/badge/version-1.0.5-blue)
 ![最低 Unity 版本](https://img.shields.io/badge/Unity-2021.2%2B-blue)
 
 Aurora Audio 的 Unity 实现，建立在 `UnityEngine.AudioSource` 之上。
