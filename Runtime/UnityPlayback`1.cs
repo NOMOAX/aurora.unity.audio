@@ -27,7 +27,7 @@ namespace Aurora.Unity.Audio
         {
             if (sound is not UnitySound<T> unitySound)
             {
-                throw new ArgumentException($"The {nameof(sound)} is not a {nameof(UnitySound<T>)}", nameof(sound));
+                throw new ArgumentException($"The {nameof(sound)} is not a {nameof(UnitySound<T>)}.", nameof(sound));
             }
             UnityPlaybackContainer.EnsureInitialized();
             var gameObject = new GameObject(id.ToString(NumberFormatInfo.InvariantInfo));
@@ -46,7 +46,9 @@ namespace Aurora.Unity.Audio
                 ThrowIfDisposed();
                 return AudioSourceUtility.GetStatus(_audioSource) switch
                 {
-                    AudioSourceStatus.Default => throw new InvalidOperationException(),
+                    AudioSourceStatus.Default => throw new InvalidOperationException(
+                                                     $"The {nameof(AudioSource)}.{nameof(AudioSource.clip)} of the underlying audio source is null."
+                                                 ),
                     AudioSourceStatus.None    => PlaybackStatus.None,
                     AudioSourceStatus.Playing => PlaybackStatus.Playing,
                     AudioSourceStatus.Paused  => PlaybackStatus.Paused,
